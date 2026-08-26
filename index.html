@@ -34,51 +34,48 @@
 
     h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
 
-    /* ================= BANNER / HERO SECTION ================= */
+    /* ================= BANNER / HEADER FIXO ================= */
     .hero-banner {
-      position: relative;
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      min-height: 100vh;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      z-index: 1000;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      justify-content: center;
-      padding: 80px 20px 40px 20px;
-      background: linear-gradient(to bottom, #f4f6f9, #ffffff);
-      text-align: center;
+      justify-content: space-between;
+      padding: 10px 5%;
+      transition: all 0.3s ease;
     }
 
-    /* Imagens do Banner */
+    /* Imagens do Banner (Tamanhos reduzidos para o topo) */
     .banner-images {
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: center;
-      gap: 5%;
-      width: 100%;
-      max-width: 1100px;
-      margin-bottom: 30px;
+      gap: 15px;
     }
 
     .img-left {
-      width: 40%;
-      max-width: 400px;
-      height: auto;
+      height: 60px; /* Tamanho ajustado para não ocupar muita tela */
+      width: auto;
       object-fit: contain;
     }
 
     .img-center {
-      width: 50%;
-      max-width: 500px;
-      height: auto;
+      height: 40px; /* Tamanho ajustado para não ocupar muita tela */
+      width: auto;
       object-fit: contain;
     }
 
     /* Menu do Banner */
     .banner-menu {
       display: flex;
-      gap: 30px;
-      margin-bottom: 20px;
+      gap: 15px;
     }
 
     .banner-menu a {
@@ -86,25 +83,24 @@
       color: var(--navy-blue);
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 0.95rem;
       text-transform: uppercase;
-      padding: 10px 20px;
-      border: 2px solid transparent;
-      border-radius: 30px;
+      padding: 8px 15px;
+      border-radius: 20px;
       transition: all 0.3s ease;
     }
 
     .banner-menu a:hover {
       color: var(--orange-accent);
-      border-color: var(--orange-accent);
       background: rgba(242, 139, 36, 0.05);
     }
 
     .hero-location {
-      font-size: 1.1rem;
+      font-size: 0.85rem;
       color: #555;
       font-weight: 600;
-      margin-top: 10px;
+      max-width: 250px;
+      text-align: right;
     }
 
     /* ================= SESSÕES GERAIS COM VÍDEO ================= */
@@ -115,7 +111,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 100px 20px;
+      padding: 120px 20px 40px 20px; /* Padding-top maior para não esconder atrás do banner fixo */
       overflow: hidden;
     }
 
@@ -168,29 +164,29 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden; /* Importante para esconder a rolagem horizontal */
+      overflow: hidden; 
       width: 100%;
     }
 
     .carousel-item {
       position: absolute;
       opacity: 0;
-      transform: translateX(150px); /* Começa vindo da direita */
-      transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); /* Transição mais suave e orgânica */
+      transform: translateX(150px);
+      transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
       pointer-events: none;
       width: 100%;
     }
 
     .carousel-item.active {
       opacity: 1;
-      transform: translateX(0); /* Fica no centro */
+      transform: translateX(0); 
       pointer-events: auto;
       position: relative;
     }
 
     .carousel-item.exit {
       opacity: 0;
-      transform: translateX(-150px); /* Sai pela esquerda */
+      transform: translateX(-150px); 
       position: absolute;
     }
 
@@ -309,25 +305,35 @@
 
     /* ================= RESPONSIVO (MOBILE) ================= */
     @media (max-width: 768px) {
-      /* Comportamento do Banner no Celular */
+      /* Banner Fixo no Celular (Menor e Empilhado) */
+      .hero-banner {
+        flex-direction: column;
+        padding: 12px 10px;
+        gap: 10px;
+      }
       .banner-images {
-        flex-direction: column; /* Empilha as imagens */
-        gap: 20px;
+        flex-direction: column; /* Imagem da ponte no topo, texto embaixo */
+        gap: 5px;
       }
       .img-left {
-        width: 70%;
-        max-width: 250px;
+        height: 50px; /* Proporção ideal para celular */
       }
       .img-center {
-        width: 90%;
-        max-width: 350px;
+        height: 25px; /* Proporção ideal para celular */
       }
       .banner-menu {
-        flex-direction: column;
-        gap: 15px;
-        width: 100%;
-        max-width: 250px;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
       }
+      .banner-menu a { font-size: 0.85rem; padding: 5px 10px; }
+      .hero-location { text-align: center; font-size: 0.75rem; max-width: 100%; margin-top: 5px; }
+      
+      /* Ajuste nos cards para não ficarem escondidos pelo banner maior no mobile */
+      .video-section {
+        padding-top: 180px; 
+      }
+      
       .glass-card { padding: 2rem 1rem; width: 95%; }
       .glass-card h2 { font-size: 2rem; }
       .carousel-item h3 { font-size: 1.5rem; }
@@ -337,7 +343,7 @@
 </head>
 <body>
 
-  <section id="banner" class="hero-banner">
+  <header id="banner" class="hero-banner">
     <div class="banner-images">
       <img src="3pontes-imagem-pontes.png" alt="Desenho das 3 Pontes" class="img-left">
       <img src="texto-3pontes.png" alt="3 Pontes Manutenções Gerais" class="img-center">
@@ -349,7 +355,7 @@
     </nav>
     
     <p class="hero-location">Atendimento especializado em Foz do Iguaçu e Santa Terezinha de Itaipu.</p>
-  </section>
+  </header>
 
   <section id="servicos" class="video-section">
     <video class="bg-video" autoplay muted loop playsinline>
@@ -465,21 +471,16 @@
     function startCarousel() {
       const items = document.querySelectorAll('.carousel-item');
       
-      // Mudança de slide a cada 6 segundos (Mais lento e agradável para ler)
       setInterval(() => {
-        // O slide atual sai pela esquerda (adiciona classe 'exit')
         items[currentIndex].classList.remove('active');
         items[currentIndex].classList.add('exit');
         
         const previousIndex = currentIndex;
 
-        // Atualiza para o próximo slide
         currentIndex = (currentIndex + 1) % items.length;
         
-        // O próximo slide entra vindo da direita
         items[currentIndex].classList.add('active');
 
-        // Limpa a classe 'exit' após a animação terminar (1 segundo) para resetar a posição
         setTimeout(() => {
           items[previousIndex].classList.remove('exit');
         }, 1000);
