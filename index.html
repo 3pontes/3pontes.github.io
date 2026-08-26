@@ -12,16 +12,19 @@
   <style>
     /* ================= VARIÁVEIS DE CORES E ESTILOS ================= */
     :root {
-      --navy-blue: #1c2742; /* Cor baseada na logo */
-      --orange-accent: #f28b24; /* Laranja do raio da logo */
+      --navy-blue: #1c2742;
+      --orange-accent: #f28b24;
       --white: #ffffff;
-      --bg-light: #f8f9fa;
-      --glass-bg: rgba(255, 255, 255, 0.75); /* Vidro fosco claro */
+      --glass-bg: rgba(255, 255, 255, 0.85); 
       --glass-border: rgba(255, 255, 255, 0.5);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
+    html {
+      scroll-behavior: smooth; /* Faz a rolagem do menu ser suave */
+    }
+
     body {
       font-family: 'Open Sans', sans-serif;
       background-color: var(--white);
@@ -31,67 +34,96 @@
 
     h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
 
-    /* ================= HEADER ================= */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
+    /* ================= BANNER / HERO SECTION ================= */
+    .hero-banner {
+      position: relative;
       width: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-      z-index: 1000;
-      padding: 10px 5%;
+      min-height: 100vh;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      transition: all 0.3s ease;
+      justify-content: center;
+      padding: 80px 20px 40px 20px;
+      background: linear-gradient(to bottom, #f4f6f9, #ffffff);
+      text-align: center;
     }
 
-    .logo-container img {
-      height: 70px;
-      width: auto;
-      border-radius: 50%; /* Como a logo é circular, isso dá um acabamento perfeito */
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    /* Imagens do Banner */
+    .banner-images {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 5%;
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 30px;
     }
 
-    .cta-header {
-      background-color: var(--orange-accent);
-      color: var(--white);
+    .img-left {
+      width: 40%;
+      max-width: 400px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .img-center {
+      width: 50%;
+      max-width: 500px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* Menu do Banner */
+    .banner-menu {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+
+    .banner-menu a {
       text-decoration: none;
-      padding: 12px 24px;
-      border-radius: 8px;
+      color: var(--navy-blue);
+      font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 1.2rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      padding: 10px 20px;
+      border: 2px solid transparent;
+      border-radius: 30px;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(242, 139, 36, 0.3);
     }
 
-    .cta-header:hover {
-      background-color: #d9771a;
-      transform: translateY(-2px);
+    .banner-menu a:hover {
+      color: var(--orange-accent);
+      border-color: var(--orange-accent);
+      background: rgba(242, 139, 36, 0.05);
     }
 
-    /* ================= SESSÕES COM VÍDEO (Padrão MA IT Services) ================= */
-    section {
+    .hero-location {
+      font-size: 1.1rem;
+      color: #555;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    /* ================= SESSÕES GERAIS COM VÍDEO ================= */
+    .video-section {
       position: relative;
       width: 100%;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 100px 20px;
       overflow: hidden;
-      padding: 100px 20px 40px 20px;
     }
 
-    /* Overlay para garantir que o card branco tenha contraste */
-    section::after {
+    .video-section::after {
       content: "";
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(244, 246, 249, 0.3); /* Overlay bem claro */
+      background: rgba(244, 246, 249, 0.3);
       z-index: 1;
     }
 
@@ -100,11 +132,11 @@
       top: 0; left: 0; width: 100%; height: 100%;
       object-fit: cover;
       z-index: 0;
-      filter: blur(8px) brightness(0.8); /* Desfocado direto no CSS */
-      transform: scale(1.05); /* Evita bordas brancas do blur */
+      filter: blur(8px) brightness(0.85);
+      transform: scale(1.05);
     }
 
-    /* ================= EFEITO GLASSMORPHISM (Claro) ================= */
+    /* ================= EFEITO GLASSMORPHISM ================= */
     .glass-card {
       position: relative;
       z-index: 2;
@@ -120,38 +152,46 @@
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     }
 
-    .glass-card h1, .glass-card h2 {
+    .glass-card h2 {
       font-size: 2.8rem;
       color: var(--navy-blue);
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       line-height: 1.2;
     }
 
     .highlight { color: var(--orange-accent); }
 
-    /* ================= CARROSSEL DE SERVIÇOS ================= */
+    /* ================= CARROSSEL DE SERVIÇOS (Horizontal) ================= */
     .carousel-container {
       position: relative;
-      min-height: 250px;
+      min-height: 280px;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden; /* Importante para esconder a rolagem horizontal */
+      width: 100%;
     }
 
     .carousel-item {
       position: absolute;
       opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease-in-out;
+      transform: translateX(150px); /* Começa vindo da direita */
+      transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); /* Transição mais suave e orgânica */
       pointer-events: none;
       width: 100%;
     }
 
     .carousel-item.active {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(0); /* Fica no centro */
       pointer-events: auto;
       position: relative;
+    }
+
+    .carousel-item.exit {
+      opacity: 0;
+      transform: translateX(-150px); /* Sai pela esquerda */
+      position: absolute;
     }
 
     .carousel-item h3 {
@@ -196,23 +236,27 @@
     }
 
     .valor-item {
-      background: rgba(255, 255, 255, 0.6);
-      padding: 2rem;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 2.5rem 1.5rem;
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,0.8);
-      transition: transform 0.3s ease;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
-    .valor-item:hover { transform: translateY(-10px); }
+    .valor-item:hover { 
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+    
     .valor-item h3 { font-size: 1.5rem; color: var(--orange-accent); margin-bottom: 10px; }
-    .valor-item p { font-size: 1rem; font-weight: 600; }
+    .valor-item p { font-size: 1rem; font-weight: 600; color: #444;}
 
     /* ================= FOOTER ================= */
     footer {
-      background-color: var(--white);
+      background-color: var(--navy-blue);
+      color: var(--white);
       padding: 3rem 5%;
       text-align: center;
-      border-top: 1px solid #eaeaea;
     }
 
     .footer-content {
@@ -239,8 +283,8 @@
     .social-instagram:hover { transform: scale(1.05); }
     .social-instagram img { width: 24px; height: 24px; filter: brightness(0) invert(1); }
 
-    .copyright { font-size: 0.9rem; color: #666; margin-top: 1rem; }
-    .creditos { font-weight: bold; color: var(--navy-blue); margin-top: 5px; font-size: 0.85rem;}
+    .copyright { font-size: 0.9rem; color: #bbb; margin-top: 1rem; }
+    .creditos { font-weight: bold; color: var(--orange-accent); margin-top: 5px; font-size: 0.85rem;}
 
     /* ================= BOTÃO WHATSAPP ================= */
     .whatsapp-float {
@@ -263,40 +307,65 @@
     .whatsapp-float:hover { transform: scale(1.1) rotate(10deg); }
     .whatsapp-float img { width: 35px; height: 35px; }
 
-    /* ================= RESPONSIVO ================= */
+    /* ================= RESPONSIVO (MOBILE) ================= */
     @media (max-width: 768px) {
+      /* Comportamento do Banner no Celular */
+      .banner-images {
+        flex-direction: column; /* Empilha as imagens */
+        gap: 20px;
+      }
+      .img-left {
+        width: 70%;
+        max-width: 250px;
+      }
+      .img-center {
+        width: 90%;
+        max-width: 350px;
+      }
+      .banner-menu {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        max-width: 250px;
+      }
       .glass-card { padding: 2rem 1rem; width: 95%; }
-      .glass-card h1, .glass-card h2 { font-size: 2rem; }
+      .glass-card h2 { font-size: 2rem; }
       .carousel-item h3 { font-size: 1.5rem; }
-      .cta-header { display: none; } /* Oculta no mobile para focar no logo e no ícone do whats */
       .valores-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo-container">
-      <img src="LOGO-3PONTES-PERFIL.jpeg" alt="3Pontes Manutenções Gerais">
+  <section id="banner" class="hero-banner">
+    <div class="banner-images">
+      <img src="3pontes-imagem-pontes.png" alt="Desenho das 3 Pontes" class="img-left">
+      <img src="texto-3pontes.png" alt="3 Pontes Manutenções Gerais" class="img-center">
     </div>
-    <a href="https://wa.me/5599999999999" target="_blank" class="cta-header">Solicitar Orçamento</a>
-  </header>
 
-  <section id="servicos">
+    <nav class="banner-menu">
+      <a href="#servicos">Início</a>
+      <a href="#sobre">Como Fazemos</a>
+    </nav>
+    
+    <p class="hero-location">Atendimento especializado em Foz do Iguaçu e Santa Terezinha de Itaipu.</p>
+  </section>
+
+  <section id="servicos" class="video-section">
     <video class="bg-video" autoplay muted loop playsinline>
       <source src="videos/video-fundo-1.mp4" type="video/mp4" />
       <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="Fundo">
     </video>
 
     <div class="glass-card">
-      <h2>Nossas Especialidades</h2>
+      <h2>Nossas <span class="highlight">Especialidades</span></h2>
       
       <div class="carousel-container" id="carousel">
         </div>
     </div>
   </section>
 
-  <section id="sobre">
+  <section id="sobre" class="video-section">
     <video class="bg-video" autoplay muted loop playsinline>
       <source src="videos/video-fundo-2.mp4" type="video/mp4" />
       <img src="https://images.unsplash.com/photo-1504307651254-35680f356f58?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="Fundo">
@@ -309,15 +378,15 @@
       <div class="valores-grid">
         <div class="valor-item">
           <h3>Qualidade</h3>
-          <p>Materiais de primeira linha e execução impecável em cada detalhe.</p>
+          <p>Materiais de primeira linha e execução impecável em cada detalhe do serviço.</p>
         </div>
         <div class="valor-item">
           <h3>Comprometimento</h3>
-          <p>Cumprimos prazos rigorously e não deixamos o trabalho pela metade.</p>
+          <p>Cumprimos prazos rigorosamente e não deixamos o trabalho pela metade.</p>
         </div>
         <div class="valor-item">
           <h3>Responsabilidade</h3>
-          <p>Profissionais qualificados, garantindo a sua tranquilidade e segurança.</p>
+          <p>Profissionais qualificados, garantindo a sua tranquilidade e total segurança.</p>
         </div>
       </div>
     </div>
@@ -342,7 +411,6 @@
   </a>
 
   <script>
-    // Lista de Serviços
     const servicos = [
       {
         icon: "⚡",
@@ -374,7 +442,6 @@
     const carouselContainer = document.getElementById('carousel');
     let currentIndex = 0;
 
-    // Função para renderizar os itens do carrossel
     function renderCarousel() {
       servicos.forEach((servico, index) => {
         const itemDiv = document.createElement('div');
@@ -395,18 +462,31 @@
       });
     }
 
-    // Função para alternar os slides automaticamente
     function startCarousel() {
       const items = document.querySelectorAll('.carousel-item');
       
+      // Mudança de slide a cada 6 segundos (Mais lento e agradável para ler)
       setInterval(() => {
+        // O slide atual sai pela esquerda (adiciona classe 'exit')
         items[currentIndex].classList.remove('active');
+        items[currentIndex].classList.add('exit');
+        
+        const previousIndex = currentIndex;
+
+        // Atualiza para o próximo slide
         currentIndex = (currentIndex + 1) % items.length;
+        
+        // O próximo slide entra vindo da direita
         items[currentIndex].classList.add('active');
-      }, 4000); // Muda a cada 4 segundos
+
+        // Limpa a classe 'exit' após a animação terminar (1 segundo) para resetar a posição
+        setTimeout(() => {
+          items[previousIndex].classList.remove('exit');
+        }, 1000);
+
+      }, 6000); 
     }
 
-    // Inicialização
     document.addEventListener('DOMContentLoaded', () => {
       renderCarousel();
       startCarousel();
