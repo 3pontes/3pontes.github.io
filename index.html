@@ -22,7 +22,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     html {
-      scroll-behavior: smooth; /* Faz a rolagem do menu ser suave */
+      scroll-behavior: smooth;
     }
 
     body {
@@ -52,30 +52,46 @@
       transition: all 0.3s ease;
     }
 
-    /* Imagens do Banner (Tamanhos reduzidos para o topo) */
-    .banner-images {
+    /* Estrutura de 3 colunas para alinhamento perfeito */
+    .header-left {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+      flex: 1; /* Ocupa a esquerda */
+    }
+
+    .header-center {
+      display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 15px;
+      flex: 1; /* Ocupa o centro perfeitamente */
+    }
+
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex: 1; /* Ocupa a direita */
     }
 
     .img-left {
-      height: 60px; /* Tamanho ajustado para não ocupar muita tela */
+      height: 60px;
       width: auto;
       object-fit: contain;
     }
 
     .img-center {
-      height: 40px; /* Tamanho ajustado para não ocupar muita tela */
+      height: 65px; /* Aumentado para ficar levemente maior */
       width: auto;
       object-fit: contain;
     }
 
-    /* Menu do Banner */
+    /* Menu do Banner (Agora em formato compacto embaixo da imagem) */
     .banner-menu {
       display: flex;
       gap: 15px;
+      margin-left: -5px; /* Ajuste sutil para alinhar com a imagem acima */
     }
 
     .banner-menu a {
@@ -83,10 +99,10 @@
       color: var(--navy-blue);
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.85rem; /* Fonte um pouco menor para caber elegantemente */
       text-transform: uppercase;
-      padding: 8px 15px;
-      border-radius: 20px;
+      padding: 4px 8px;
+      border-radius: 12px;
       transition: all 0.3s ease;
     }
 
@@ -111,7 +127,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 120px 20px 40px 20px; /* Padding-top maior para não esconder atrás do banner fixo */
+      padding: 140px 20px 40px 20px; /* Aumentado para compensar a altura do novo header */
       overflow: hidden;
     }
 
@@ -305,35 +321,35 @@
 
     /* ================= RESPONSIVO (MOBILE) ================= */
     @media (max-width: 768px) {
-      /* Banner Fixo no Celular (Menor e Empilhado) */
+      /* Reorganizando as colunas do Header para empilhar no celular */
       .hero-banner {
         flex-direction: column;
-        padding: 12px 10px;
-        gap: 10px;
+        padding: 15px 10px;
+        gap: 15px;
       }
-      .banner-images {
-        flex-direction: column; /* Imagem da ponte no topo, texto embaixo */
-        gap: 5px;
-      }
-      .img-left {
-        height: 50px; /* Proporção ideal para celular */
-      }
-      .img-center {
-        height: 25px; /* Proporção ideal para celular */
-      }
-      .banner-menu {
-        flex-direction: row;
+      .header-left, .header-center, .header-right {
+        flex: auto;
         justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+      .header-left {
+        align-items: center;
         gap: 10px;
       }
-      .banner-menu a { font-size: 0.85rem; padding: 5px 10px; }
-      .hero-location { text-align: center; font-size: 0.75rem; max-width: 100%; margin-top: 5px; }
+      .img-left { height: 50px; }
+      .img-center { height: 40px; } /* Proporcionalmente maior também no mobile */
       
-      /* Ajuste nos cards para não ficarem escondidos pelo banner maior no mobile */
-      .video-section {
-        padding-top: 180px; 
+      .banner-menu { 
+        margin-left: 0; 
+        justify-content: center; 
+      }
+      .hero-location { 
+        text-align: center; 
+        font-size: 0.75rem; 
       }
       
+      .video-section { padding-top: 220px; } /* Ajuste de espaçamento pro header não sobrepor os cards */
       .glass-card { padding: 2rem 1rem; width: 95%; }
       .glass-card h2 { font-size: 2rem; }
       .carousel-item h3 { font-size: 1.5rem; }
@@ -344,17 +360,23 @@
 <body>
 
   <header id="banner" class="hero-banner">
-    <div class="banner-images">
+    
+    <div class="header-left">
       <img src="3pontes-imagem-pontes.png" alt="Desenho das 3 Pontes" class="img-left">
+      <nav class="banner-menu">
+        <a href="#servicos">Início</a>
+        <a href="#sobre">Como Fazemos</a>
+      </nav>
+    </div>
+
+    <div class="header-center">
       <img src="texto-3pontes.png" alt="3 Pontes Manutenções Gerais" class="img-center">
     </div>
 
-    <nav class="banner-menu">
-      <a href="#servicos">Início</a>
-      <a href="#sobre">Como Fazemos</a>
-    </nav>
-    
-    <p class="hero-location">Atendimento especializado em Foz do Iguaçu e Santa Terezinha de Itaipu.</p>
+    <div class="header-right">
+      <p class="hero-location">Atendimento especializado em Foz do Iguaçu e Santa Terezinha de Itaipu.</p>
+    </div>
+
   </header>
 
   <section id="servicos" class="video-section">
